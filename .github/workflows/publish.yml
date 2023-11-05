@@ -23,7 +23,7 @@ jobs:
       - name: Publish to GitHub Packages
         run: |
           echo "Publishing to GitHub Packages"
-          gradle build --no-daemon
+          gradle build publish --no-daemon
 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
