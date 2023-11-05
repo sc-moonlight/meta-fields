@@ -6,9 +6,7 @@ import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.PrimitiveType;
 import javax.lang.model.util.Elements;
-import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
 import javax.tools.Diagnostic.Kind;
 import javax.tools.JavaFileObject;
@@ -67,7 +65,6 @@ public class GenStaticModelProcessor extends AbstractProcessor {
                 package %s;
 
                 import moonlight.annotationproc.staticmeta.StaticModel;
-                import moonlight.annotationproc.staticmeta.attributes.*;
                 import java.util.List;
                 import javax.annotation.processing.Generated;
 
