@@ -1,0 +1,20 @@
+plugins {
+	id 'java'
+}
+java {
+	sourceCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// https://mvnrepository.com/artifact/com.google.auto.service/auto-service
+	annotationProcessor group: 'com.google.auto.service', name: 'auto-service', version: '1.1.1'
+	compileOnly group: 'com.google.auto.service', name: 'auto-service', version: '1.1.1'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

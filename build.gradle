@@ -1,0 +1,10 @@
+plugins {
+	id 'java'
+}
+
+group = 'moonlight'
+version = '0.1-SNAPSHOT'
+
+repositories {
+	mavenCentral()
+}
