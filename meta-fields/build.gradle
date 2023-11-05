@@ -1,8 +1,11 @@
 plugins {
 	id 'java'
+	id("maven-publish")
 }
+
 java {
 	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
 }
 
 repositories {
@@ -17,4 +20,40 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+jar {
+	// Include GitHub commit and user information in MANIFEST.MF
+	manifest {
+		attributes(
+				'Implementation-Title': 'meta-fields',
+				'Implementation-Version': "${getImplVersion()}"
+		)
+	}
+}
+
+def getImplVersion() {
+	if (System.getenv("CI") != null) {
+		return "${version}-${System.getenv("GITHUB_SHA")} by ${System.getenv("GITHUB_TRIGGERING_ACTOR")}"
+	}
+	return "";
+}
+
+
+publishing {
+	repositories {
+		maven {
+			name = "GitHubPackages"
+			url = uri("https://maven.pkg.github.com/sc-moonlight/meta-fields")
+			credentials {
+				username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_TRIGGERING_ACTOR")
+				password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+			}
+		}
+	}
+	publications {
+		gpr(MavenPublication) {
+			from(components.java)
+		}
+	}
 }
