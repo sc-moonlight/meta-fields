@@ -1,0 +1,31 @@
+name: publish
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    name: Publish release
+    needs: assemble
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'corretto'
+      - uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 8.4
+      - name: Publish to GitHub Packages
+        run: |
+          echo "Publishing to GitHub Packages"
+          gradle build --no-daemon
+
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

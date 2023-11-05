@@ -56,7 +56,25 @@ The original example now would change to this:
 errors.rejectValue(UserDTOMeta.id, "invalid");
 ```
 
+## Configuration
+The annotation processor supports two options.
+* metaFieldsSuffix
+  * The default suffix for the generated class is "Meta". Adding a value for metaFieldsSuffix, allows you to override that.
+* metaFieldsVerbose
+  * Log messages during annotation processing
 
+### example gradle configuration
+```groovy
+
+dependencies {
+    annotationProcessor group: 'moonlight', name: 'meta-fields', version: '0.1-SNAPSHOT'
+    compileOnly group: 'moonlight', name: 'meta-fields', version: '0.1-SNAPSHOT'
+}
+
+tasks.withType(JavaCompile) {
+  options.compilerArgs += ['-AmetaFieldsVerbose', '-AmetaFieldsSuffix=Meta']
+}
+```
 
 
 ## License
