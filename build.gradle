@@ -8,3 +8,21 @@ version = '0.1-SNAPSHOT'
 repositories {
 	mavenCentral()
 }
+
+allprojects {
+	tasks.withType(Jar) { // includes War and Ear
+		manifest {
+			attributes(
+					'Implementation-Title': "${project.name}",
+					'Implementation-Version': "${getImplVersion()}"
+			)
+		}
+	}
+}
+
+def getImplVersion() {
+	if (System.getenv("CI") != null) {
+		return "${version}-${System.getenv("GITHUB_SHA")} by ${System.getenv("GITHUB_TRIGGERING_ACTOR")}"
+	}
+	return "${version}";
+}

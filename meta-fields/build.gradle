@@ -22,24 +22,6 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
-jar {
-	// Include GitHub commit and user information in MANIFEST.MF
-	manifest {
-		attributes(
-				'Implementation-Title': 'meta-fields',
-				'Implementation-Version': "${getImplVersion()}"
-		)
-	}
-}
-
-def getImplVersion() {
-	if (System.getenv("CI") != null) {
-		return "${version}-${System.getenv("GITHUB_SHA")} by ${System.getenv("GITHUB_TRIGGERING_ACTOR")}"
-	}
-	return "";
-}
-
-
 publishing {
 	repositories {
 		maven {

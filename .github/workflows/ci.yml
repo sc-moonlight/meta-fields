@@ -24,9 +24,9 @@ jobs:
       - run: gradle build --no-daemon
       - run: echo "🍏 This job's status is ${{ job.status }}."
       - name: Upload Artifact GitHub Action
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
-          name: assets-for-download
+          name: jar
           path: meta-fields/build/libs/
 
   publish:
