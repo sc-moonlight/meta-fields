@@ -2,9 +2,10 @@ plugins {
 	id 'java'
 }
 
-group = 'moonlight'
-version = '0.1-SNAPSHOT'
-
+allprojects {
+	group = 'moonlight'
+	version = '0.1-SNAPSHOT'
+}
 repositories {
 	mavenCentral()
 }
