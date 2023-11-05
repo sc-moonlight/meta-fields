@@ -6,9 +6,7 @@ on:
 jobs:
   publish:
     name: Publish release
-    needs: assemble
     runs-on: ubuntu-latest
-    if: github.event_name == 'release'
 
     steps:
       - name: Checkout code
