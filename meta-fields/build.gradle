@@ -16,10 +16,19 @@ dependencies {
 	// https://mvnrepository.com/artifact/com.google.auto.service/auto-service
 	annotationProcessor group: 'com.google.auto.service', name: 'auto-service', version: '1.1.1'
 	compileOnly group: 'com.google.auto.service', name: 'auto-service', version: '1.1.1'
+
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+	// https://mvnrepository.com/artifact/commons-io/commons-io
+	testImplementation group: 'commons-io', name: 'commons-io', version: "2.15.0"
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+	// Set a temp directory as the working directory, because we are generating source files in the tests.
+	def tempDir = File.createTempDir()
+	tempDir.deleteOnExit()
+	workingDir = tempDir
 }
 
 publishing {
