@@ -38,7 +38,7 @@ public class UserDTO {
 ```
 This will automatically create this class
 ```java
-@Generated(value = "moonlight.annotationproc.staticmeta.GenStaticModelProcessor", date = "2023-11-05T10:15:30.346441400-05:00")
+@Generated(value = "net.scmoonlight.annotationproc.staticmeta.GenStaticModelProcessor", date = "2023-11-05T10:15:30.346441400-05:00")
 @StaticModel(UserDTO.class)
 public final class UserDTOMeta {
   private UserDTOMeta() {}
@@ -77,8 +77,8 @@ repositories {
 }
 
 dependencies {
-    annotationProcessor group: 'moonlight', name: 'meta-fields', version: '0.1-SNAPSHOT'
-    compileOnly group: 'moonlight', name: 'meta-fields', version: '0.1-SNAPSHOT'
+    annotationProcessor group: 'net.scmoonlight', name: 'meta-fields', version: '0.1-SNAPSHOT'
+    compileOnly group: 'net.scmoonlight', name: 'meta-fields', version: '0.1-SNAPSHOT'
 }
 
 // Optional. Only needed, if you want to see logs, or change the suffix

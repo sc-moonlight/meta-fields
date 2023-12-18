@@ -1,4 +1,4 @@
-package moonlight.annotationproc.staticmeta;
+package net.scmoonlight.annotationproc.staticmeta;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

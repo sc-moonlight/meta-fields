@@ -1,4 +1,4 @@
-package moonlight.annotationproc.staticmeta;
+package net.scmoonlight.annotationproc.staticmeta;
 
 import com.sun.source.util.JavacTask;
 import org.apache.commons.io.FileUtils;
@@ -32,7 +32,7 @@ public class GenStaticModelProcessorTest {
     public void testFieldNamesProcessor() throws Exception {
         String sourceCode = """
                 package test;
-                @moonlight.annotationproc.staticmeta.GenStaticModel
+                @net.scmoonlight.annotationproc.staticmeta.GenStaticModel
                 public class TestClass {
                     private String testField;
                     private Integer myIntField;
@@ -70,7 +70,7 @@ public class GenStaticModelProcessorTest {
     public void testFieldNamesProcessorChangeSuffix() throws Exception {
         String sourceCode = """
                 package test;
-                import moonlight.annotationproc.staticmeta.*;
+                import net.scmoonlight.annotationproc.staticmeta.*;
 
                 @GenStaticModel
                 public class TestClass {
@@ -88,7 +88,7 @@ public class GenStaticModelProcessorTest {
     public void testJavaRecord() throws Exception {
         String sourceCode = """
                 package test;
-                import moonlight.annotationproc.staticmeta.*;
+                import net.scmoonlight.annotationproc.staticmeta.*;
 
                 @GenStaticModel
                 public record TestRecord(String testField) {}
@@ -124,7 +124,7 @@ public class GenStaticModelProcessorTest {
      *
      * Need to repeat annotations here, because they don't get inherited.
      */
-    @SupportedAnnotationTypes("moonlight.annotationproc.staticmeta.GenStaticModel")
+    @SupportedAnnotationTypes("net.scmoonlight.annotationproc.staticmeta.GenStaticModel")
     @SupportedSourceVersion(SourceVersion.RELEASE_17)
     public static class TestGenStaticModelProcessor extends  GenStaticModelProcessor {
         private final Map<String, String> customOptions;

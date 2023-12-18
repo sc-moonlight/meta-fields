@@ -1,4 +1,4 @@
-package moonlight.annotationproc.staticmeta;
+package net.scmoonlight.annotationproc.staticmeta;
 
 import com.google.auto.service.AutoService;
 
@@ -21,9 +21,9 @@ import java.util.Set;
 /**
  * The main Annotation Processor.
  * Will process files annotated with @GenStaticModel
- * @see moonlight.annotationproc.staticmeta.GenStaticModel
+ * @see net.scmoonlight.annotationproc.staticmeta.GenStaticModel
  */
-@SupportedAnnotationTypes("moonlight.annotationproc.staticmeta.GenStaticModel")
+@SupportedAnnotationTypes("net.scmoonlight.annotationproc.staticmeta.GenStaticModel")
 @SupportedSourceVersion(SourceVersion.RELEASE_17)
 @AutoService(Processor.class)
 @SupportedOptions({"metaFieldsSuffix", "metaFieldsVerbose"})
@@ -107,7 +107,7 @@ public class GenStaticModelProcessor extends AbstractProcessor {
         String openTemplate = """
                 package %s;
 
-                import moonlight.annotationproc.staticmeta.StaticModel;
+                import net.scmoonlight.annotationproc.staticmeta.StaticModel;
                 import java.util.List;
                 import javax.annotation.processing.Generated;
 
