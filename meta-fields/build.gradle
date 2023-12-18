@@ -1,6 +1,7 @@
 plugins {
 	id 'java'
 	id("maven-publish")
+	id "com.gorylenko.gradle-git-properties" version "2.4.1"
 }
 
 java {
@@ -17,8 +18,10 @@ dependencies {
 	annotationProcessor group: 'com.google.auto.service', name: 'auto-service', version: '1.1.1'
 	compileOnly group: 'com.google.auto.service', name: 'auto-service', version: '1.1.1'
 
-	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
 	// https://mvnrepository.com/artifact/commons-io/commons-io
 	testImplementation group: 'commons-io', name: 'commons-io', version: "2.15.0"
 }
@@ -30,6 +33,13 @@ tasks.named('test') {
 	tempDir.deleteOnExit()
 	workingDir = tempDir
 }
+
+gitProperties {
+	gitPropertiesName = "meta-fields-git.properties"
+	keys = ['git.branch','git.build.version','git.commit.id','git.commit.time']
+}
+// make sure the generateGitProperties task always executes (even when git.properties is not changed)
+generateGitProperties.outputs.upToDateWhen { false }
 
 publishing {
 	repositories {
