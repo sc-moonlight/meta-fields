@@ -18,6 +18,11 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
+/**
+ * The main Annotation Processor.
+ * Will process files annotated with @GenStaticModel
+ * @see moonlight.annotationproc.staticmeta.GenStaticModel
+ */
 @SupportedAnnotationTypes("moonlight.annotationproc.staticmeta.GenStaticModel")
 @SupportedSourceVersion(SourceVersion.RELEASE_17)
 @AutoService(Processor.class)
