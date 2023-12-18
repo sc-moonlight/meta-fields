@@ -1,6 +1,7 @@
 plugins {
 	id 'java'
 	id("maven-publish")
+	id("signing")
 	id "com.gorylenko.gradle-git-properties" version "2.4.1"
 }
 
@@ -24,6 +25,20 @@ dependencies {
 
 	// https://mvnrepository.com/artifact/commons-io/commons-io
 	testImplementation group: 'commons-io', name: 'commons-io', version: "2.15.0"
+}
+
+task javadocJar(type: Jar) {
+	archiveClassifier = 'javadoc'
+	from javadoc
+}
+
+task sourcesJar(type: Jar) {
+	archiveClassifier = 'sources'
+	from sourceSets.main.allSource
+}
+
+artifacts {
+	archives javadocJar, sourcesJar
 }
 
 tasks.named('test') {
@@ -51,10 +66,70 @@ publishing {
 				password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
 			}
 		}
+		maven {
+			name = "Sonatype"
+			url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+			credentials {
+				username = ossrhUsername
+				password = ossrhPassword
+			}
+		}
 	}
 	publications {
 		gpr(MavenPublication) {
 			from(components.java)
 		}
+
+		sonatype(MavenPublication) {
+			from components.java
+
+			// Attach Javadoc and sources
+			artifact sourcesJar
+			artifact javadocJar
+			pom {
+				name = 'Meta-Fields'
+				description = 'An annotation processor to create a safe way to reference object properties.'
+				url = 'https://github.com/sc-moonlight/meta-fields'
+
+				// SCM and other details can be customized here
+				scm {
+					connection = 'scm:git:https://github.com/sc-moonlight/meta-fields.git'
+					developerConnection = 'scm:git:https://github.com/sc-moonlight/meta-fields.git'
+					url = 'https://github.com/sc-moonlight/meta-fields'
+				}
+
+				licenses {
+					license {
+						name = 'The Apache License, Version 2.0'
+						url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+					}
+				}
+
+				developers {
+					developer {
+						id = 'sc-moonlight'
+						url = 'https://github.com/sc-moonlight/meta-fields'
+					}
+				}
+			}
+		}
 	}
 }
+
+tasks.named('publishSonatypePublicationToGitHubPackagesRepository').configure {
+	enabled = false
+}
+tasks.named('publishAllPublicationsToGitHubPackagesRepository').configure {
+	enabled = false
+}
+tasks.named('publishAllPublicationsToSonatypeRepository').configure {
+	enabled = false
+}
+tasks.named('publishGprPublicationToSonatypeRepository').configure {
+	enabled = false
+}
+
+signing {
+	sign publishing.publications.sonatype
+}
+

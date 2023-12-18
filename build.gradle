@@ -3,7 +3,7 @@ plugins {
 }
 
 allprojects {
-	group = 'moonlight'
+	group = 'net.sc-moonlight'
 	version = '0.9'
 }
 repositories {
