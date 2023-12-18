@@ -84,6 +84,26 @@ public class GenStaticModelProcessorTest {
         assertTrue(metaFile.exists());
     }
 
+    @Test
+    public void testJavaRecord() throws Exception {
+        String sourceCode = """
+                package test;
+                import moonlight.annotationproc.staticmeta.*;
+
+                @GenStaticModel
+                public record TestRecord(String testField) {}
+                """;
+
+        File metaFile = new File(testPkgDir,"TestRecordMeta.java");
+        assertFalse(metaFile.exists());
+        processSourceCode("TestRecord.java", sourceCode, null);
+        assertTrue(metaFile.exists());
+        String metaSource = FileUtils.readFileToString(metaFile, Charset.defaultCharset());
+        assertTrue(metaSource.contains("@StaticModel"));
+        assertTrue(metaSource.contains("public final class TestRecordMeta {"));
+        assertTrue(metaSource.contains("public static final String testField = \"testField\""));
+        assertTrue(metaSource.contains("public static final List<String> allFields = List.of(testField)"));
+    }
     private void processSourceCode(String classFileName, String sourceCode, Map<String, String> options) throws IOException {
         File sourceFile = new File(testPkgDir, classFileName);
         FileUtils.writeStringToFile(sourceFile, sourceCode, Charset.defaultCharset());
