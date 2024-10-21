@@ -9,6 +9,7 @@ permissions:
 
 jobs:
   publish:
+    environment: OSSRH
     name: Publish release
     runs-on: ubuntu-latest
 
@@ -41,7 +42,7 @@ jobs:
 
 
   sign:
-    name: Publish release
+    name: Sign
     runs-on: ubuntu-latest
 
     steps:
