@@ -130,8 +130,8 @@ tasks.named('publishGprPublicationToSonatypeRepository').configure {
 }
 
 signing {
-	def signingKey = project.findProperty("SIGNINGKEY")
-	def signingPassword = project.findProperty("SIGNINGPASSWORD")
+	def signingKey = project.findProperty("signingKey")
+	def signingPassword = project.findProperty("signingPassword")
 	useInMemoryPgpKeys(signingKey, signingPassword)
 	sign publishing.publications.sonatype
 }
