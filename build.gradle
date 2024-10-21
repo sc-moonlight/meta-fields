@@ -4,7 +4,7 @@ plugins {
 
 allprojects {
 	group = 'net.sc-moonlight'
-	version = '0.1.10'
+	version = '0.1.11'
 }
 repositories {
 	mavenCentral()
