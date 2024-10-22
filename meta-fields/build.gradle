@@ -3,6 +3,7 @@ plugins {
 	id("maven-publish")
 	id("signing")
 	id "com.gorylenko.gradle-git-properties" version "2.4.1"
+	id("com.gradleup.nmcp").version("0.0.8")
 }
 
 java {
@@ -66,20 +67,8 @@ publishing {
 				password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
 			}
 		}
-		maven {
-			name = "Sonatype"
-			url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-			credentials {
-				username = System.getenv("MAVEN_USERNAME")
-				password = System.getenv("MAVEN_PASSWORD")
-			}
-		}
 	}
 	publications {
-		gpr(MavenPublication) {
-			from(components.java)
-		}
-
 		sonatype(MavenPublication) {
 			from components.java
 
@@ -122,12 +111,6 @@ tasks.named('publishSonatypePublicationToGitHubPackagesRepository').configure {
 tasks.named('publishAllPublicationsToGitHubPackagesRepository').configure {
 	enabled = false
 }
-tasks.named('publishAllPublicationsToSonatypeRepository').configure {
-	enabled = false
-}
-tasks.named('publishGprPublicationToSonatypeRepository').configure {
-	enabled = false
-}
 
 signing {
 	def signingKey = project.findProperty("signingKey")
@@ -136,3 +119,10 @@ signing {
 	sign publishing.publications.sonatype
 }
 
+nmcp {
+	publish("sonatype") {
+		username = System.getenv("MAVEN_USERNAME")
+		password = System.getenv("MAVEN_PASSWORD")
+		publicationType = "USER_MANAGED"
+	}
+}
